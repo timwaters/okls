@@ -7,7 +7,7 @@ A portable, self-contained learning system built on top of an agentic coding fra
 Mainly to get familiar with opencode, agents and subagents. It's probably all in the wrong places but it seems to work.
 Also to explore how a LLM might be used for tailored learning about a topic. 
 
-The `secretary` subagent is actually necessary if you were to do this using another agentic framework but I included it so opencode doesn't show all the details of what it wants to write, for example all the blurb in gaps and context. 
+The `secretary` subagent is unnecessary if you were to do this using another agentic framework or as a chat app but I included it so opencode doesn't show all the details of what it wants to write, for example all the blurb in gaps and context. 
 
 ## Things to determine
 
