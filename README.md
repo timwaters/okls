@@ -1,6 +1,12 @@
 # OKLS Knowledge Learning System
 
-A portable, self-contained learning system built on top of an agentic coding framework (I'm using opencode). Each topic is an independent agent with its own persistent memory, gap map, and tailored learning plan.
+A portable, self-contained learning system built on top of an agentic coding framework (I'm using opencode). 
+
+The system asks questions to gauge your understanding of a topic, and creates a learning plan for you. It then continues to ask and teach you based on where you are. You can also watch your understanding of each topic develop over time.
+
+Each topic is an independent agent with its own persistent memory, gap document, and tailored learning plan.  
+
+`new_topic.sh` script initializes a new directory for each topic you want to learn about. 
 
 ## Why I did this
 
@@ -11,28 +17,31 @@ The `secretary` subagent is unnecessary if you were to do this using another age
 
 ## Things to determine
 
-It might use too much context as it goes on - for example the directive to read `learning-plan.md` and `gaps.md` before every response. This might be a kind of "token spending fear" on my part.
+It might use too much context as it goes on - for example the directive to read `learning-plan.md` and `gaps.md` before every response. This might be a kind of "token spending fear" on my part. 
 
 ## TODO
 
 * Create a main agent so you can use /learn to start the process. At the moment the main default /build agent will read AGENTS and get started correctly.
 * Make it more explicit to the user how to end the session. 
-* I think just quitting via /exit wouldnt do the session close tasks
+* I think just quitting via /exit wouldnt do the session close tasks.
+* Evaluate how the external tools e.g. web_fetch and the code runner are used, and how to trigger them by the user
 
 ---
 
 ## Structure
 
+Running `new-topic.sh` will create the files in the topics directory based on the templates, and then will store the topic specific files within this new topic sub directory: 
+
 ```
-knowledge-os/
-├── _template/               source of truth; never edit directly
+okls/
+├── _template/               
 │   └── .opencode/skills/    skill definitions (interviewer / mapper / teacher)
 │   └── .opencode/agent/     sub agent for secretary tasks (write and update to files)
 ├── topics/
 │   ├── index.md             auto-updated list of all topics
 │   └── <topic>/             one directory per topic
-│       ├── AGENTS.md            orchestrator + state machine
-│       ├── .opencode/skills/    skill definitions (loaded via `skill` tool)
+│       ├── AGENTS.md            main agent orchestrator
+│       ├── .opencode/skills/    skill definitions (interviewer / mapper / teacher)
 │       ├── .opencode/agent/     sub agent for secretary tasks (write and update to files)
 │       ├── TOOLS.md             tool usage guidance
 │       ├── gaps.md              live knowledge map (written by agent)
@@ -80,6 +89,3 @@ The agent reviews `gaps.md`, identifies your learning path, and writes `learning
 **Phase 3 — Teach & Augment**
 During each session, the agent reads your learning plan and recorded knowledge gaps. It teaches one concept at a time using an intuition → mechanism → check sequence, then updates its memory after every turn.
 
----
-
-The agent tracks every gap update, plan revision, and context change. You can watch your understanding of each topic develop over time.
