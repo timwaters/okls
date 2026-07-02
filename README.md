@@ -1,4 +1,4 @@
-# Knowledge Learning System
+# OKLS Knowledge Learning System
 
 A portable, self-contained learning system built on top of an agentic coding framework (I'm using opencode). Each topic is an independent agent with its own persistent memory, gap map, and tailored learning plan.
 
